@@ -4,47 +4,51 @@ import authorization.lib.constant.Algorithm;
 
 public class JwtConfig {
 
-    private String secretKey;
+    private String secret;
+    private String privateKeyPath;
+    private String publicKeyPath;
     private Algorithm algorithm;
-    private long expirationMillis;
+    private long expirySeconds;
     private String issuer;
 
-    public JwtConfig(String secretKey, Algorithm algorithm, long expirationMillis, String issuer) {
-        this.secretKey = secretKey;
-        this.algorithm = algorithm;
-        this.expirationMillis = expirationMillis;
+    // constructor for HS256
+    public JwtConfig(String secret, long expirySeconds, String issuer) {
+        this.secret = secret;
+        this.algorithm = Algorithm.HS256;
+        this.expirySeconds = expirySeconds;
         this.issuer = issuer;
     }
 
-    public String getSecretKey() {
-        return secretKey;
+    // constructor for RS256
+    public JwtConfig(String privateKeyPath, String publicKeyPath, long expirySeconds, String issuer) {
+        this.privateKeyPath = privateKeyPath;
+        this.publicKeyPath = publicKeyPath;
+        this.algorithm = Algorithm.RS256;
+        this.expirySeconds = expirySeconds;
+        this.issuer = issuer;
     }
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
+    public String getSecret() {
+        return secret;
+    }
+
+    public String getPrivateKeyPath() {
+        return privateKeyPath;
+    }
+
+    public String getPublicKeyPath() {
+        return publicKeyPath;
     }
 
     public Algorithm getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(Algorithm algorithm) {
-        this.algorithm = algorithm;
-    }
-
-    public long getExpirationMillis() {
-        return expirationMillis;
-    }
-
-    public void setExpirationMillis(long expirationMillis) {
-        this.expirationMillis = expirationMillis;
+    public long getExpirySeconds() {
+        return expirySeconds;
     }
 
     public String getIssuer() {
         return issuer;
-    }
-
-    public void setIssuer(String issuer) {
-        this.issuer = issuer;
     }
 }
