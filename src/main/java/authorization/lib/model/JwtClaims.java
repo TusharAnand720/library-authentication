@@ -12,7 +12,7 @@ public class JwtClaims {
     private final Instant expiry;
     private final String issuer;
 
-    // used when GENERATING a token — you only know subject and roles at this point
+    // used when GENERATING a token
     public JwtClaims(String subject, List<String> roles) {
         this.subject = subject;
         this.roles = Collections.unmodifiableList(roles);
@@ -21,7 +21,7 @@ public class JwtClaims {
         this.issuer = null;
     }
 
-    // used when PARSING a token — all fields come back from the JWT payload
+    // used when PARSING a token
     public JwtClaims(String subject, List<String> roles, Instant issuedAt, Instant expiry, String issuer) {
         this.subject = subject;
         this.roles = Collections.unmodifiableList(roles);
@@ -34,7 +34,7 @@ public class JwtClaims {
 //        return roles.contains(role);
 //    }
 
-    // checks is token is expired based on current time and expiry claim
+    // checks if token is expired based on current time and expiry claim
     public boolean isExpired() {
         if (expiry == null) return false;
         return Instant.now().isAfter(expiry);
