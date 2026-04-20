@@ -1,5 +1,7 @@
 package authorization.lib.exception;
 
+import authorization.lib.constant.ErrorCode;
+
 public class TokenExpiredException extends AuthException {
 
     public TokenExpiredException(String message) {
