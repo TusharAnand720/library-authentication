@@ -1,7 +1,5 @@
 package authorization.lib.config;
 
-import authorization.lib.constant.Algorithm;
-
 public class JwtConfig {
 
     private String secret;

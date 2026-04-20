@@ -1,7 +1,5 @@
 package authorization.lib.exception;
 
-import authorization.lib.constant.ErrorCode;
-
 public class AuthException extends RuntimeException {
     private final ErrorCode errorCode;
 

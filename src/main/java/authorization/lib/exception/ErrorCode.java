@@ -1,4 +1,4 @@
-package authorization.lib.constant;
+package authorization.lib.exception;
 
 public enum ErrorCode {
     TOKEN_EXPIRED,

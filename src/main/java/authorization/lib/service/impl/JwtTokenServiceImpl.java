@@ -1,7 +1,7 @@
 package authorization.lib.service.impl;
 
+import authorization.lib.config.Algorithm;
 import authorization.lib.config.JwtConfig;
-import authorization.lib.constant.Algorithm;
 import authorization.lib.exception.InvalidTokenException;
 import authorization.lib.exception.SigningException;
 import authorization.lib.exception.TokenExpiredException;
