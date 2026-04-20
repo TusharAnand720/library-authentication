@@ -6,29 +6,18 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.0.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
+
     <groupId>authorization.lib</groupId>
-    <artifactId>authorization.lib</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name/>
-    <description/>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+    <artifactId>authorization-lib</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
     <properties>
         <java.version>21</java.version>
     </properties>
+
     <dependencies>
 
         <dependency>
@@ -39,14 +28,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>  <!-- ← important for a library -->
         </dependency>
-
-        <!--		<dependency>-->
-        <!--			<groupId>org.springframework.boot</groupId>-->
-        <!--			<artifactId>spring-boot-starter-aop</artifactId>-->
-        <!--		</dependency>-->
-
-        <!--		-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,14 +37,13 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JJWT API — the interfaces you code against -->
+        <!-- JJWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.12.6</version>
         </dependency>
 
-        <!-- JJWT implementation — the actual runtime logic, not compile-time -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
@@ -69,7 +51,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JJWT Jackson — handles claims serialization / deserialization -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -84,6 +65,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>
