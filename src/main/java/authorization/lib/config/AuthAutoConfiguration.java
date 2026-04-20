@@ -1,5 +1,6 @@
 package authorization.lib.config;
 
+import authorization.lib.annotation.AuthenticatedUserResolver;
 import authorization.lib.filter.JwtAuthFilter;
 import authorization.lib.service.impl.JwtTokenServiceImpl;
 import authorization.lib.store.NoOpTokenStore;
@@ -9,7 +10,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import tools.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 // will load the AutoConfiguration.imports file rather than component scanning
 @AutoConfiguration
@@ -58,5 +63,23 @@ public class AuthAutoConfiguration {
     public JwtAuthFilter jwtAuthFilter(JwtTokenServiceImpl jwtTokenService,
                                        ObjectMapper objectMapper) {
         return new JwtAuthFilter(jwtTokenService, objectMapper);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(AuthenticatedUserResolver.class)
+    public AuthenticatedUserResolver authenticatedUserResolver() {
+        return new AuthenticatedUserResolver();
+    }
+
+    // Register the anno
+    @Bean
+    @ConditionalOnMissingBean(WebMvcConfigurer.class)
+    public WebMvcConfigurer authWebMvcConfigurer(AuthenticatedUserResolver resolver) {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+                resolvers.add(resolver);
+            }
+        };
     }
 }
