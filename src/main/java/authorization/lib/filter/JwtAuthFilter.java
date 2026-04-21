@@ -70,7 +70,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         return path.startsWith("/auth/")
                 || path.startsWith("/actuator/health")
-                || path.startsWith("/public/");
+                || path.startsWith("/public/")
+                || path.startsWith("/register");
     }
 
     // =========== WRITES UNAUTHORIZED(401) ERROR IN HttpServletResponse ===========

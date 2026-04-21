@@ -31,6 +31,7 @@ public class AuthAutoConfiguration {
      spring will skip the given class and service class will override the lib class
      */
     public JwtConfig jwtConfig(AuthProperties authProperties) {
+        System.out.println("------ Creating JwtConfig ------");
         return switch (authProperties.getAlgorithm()) {
             case HS256 -> new JwtConfig(
                     authProperties.getSecret(),
@@ -49,25 +50,28 @@ public class AuthAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(TokenStore.class)
     public TokenStore tokenStore() {
+        System.out.println("------ Creating TokenStore ------");
         return new NoOpTokenStore();
     }
 
     @Bean
     @ConditionalOnMissingBean(JwtTokenServiceImpl.class)
     public JwtTokenServiceImpl jwtTokenService(JwtConfig config, TokenStore tokenStore) {
+        System.out.println("------ Creating JwtTokenServiceImpl ------");
         return new JwtTokenServiceImpl(config, tokenStore);
     }
 
     @Bean
     @ConditionalOnMissingBean(JwtAuthFilter.class)
-    public JwtAuthFilter jwtAuthFilter(JwtTokenServiceImpl jwtTokenService,
-                                       ObjectMapper objectMapper) {
+    public JwtAuthFilter jwtAuthFilter(JwtTokenServiceImpl jwtTokenService, ObjectMapper objectMapper) {
+        System.out.println("------ Creating JwtAuthFilter ------");
         return new JwtAuthFilter(jwtTokenService, objectMapper);
     }
 
     @Bean
     @ConditionalOnMissingBean(AuthenticatedUserResolver.class)
     public AuthenticatedUserResolver authenticatedUserResolver() {
+        System.out.println("------ Creating AuthenticatedUserResolver ------");
         return new AuthenticatedUserResolver();
     }
 
@@ -75,6 +79,7 @@ public class AuthAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(WebMvcConfigurer.class)
     public WebMvcConfigurer authWebMvcConfigurer(AuthenticatedUserResolver resolver) {
+        System.out.println("------ Creating WebMvcConfigurer ------");
         return new WebMvcConfigurer() {
             @Override
             public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
