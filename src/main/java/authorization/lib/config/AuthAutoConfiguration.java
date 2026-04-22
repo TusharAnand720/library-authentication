@@ -63,6 +63,12 @@ public class AuthAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(JwtAuthFilter.class)
+    @ConditionalOnProperty( // will only create bean if auth.jwt.filter-enabled is true or missing
+            prefix = "auth.jwt",
+            name = "filter-enabled",
+            havingValue = "true",
+            matchIfMissing = true
+    )
     public JwtAuthFilter jwtAuthFilter(JwtTokenServiceImpl jwtTokenService, ObjectMapper objectMapper) {
         System.out.println("------ Creating JwtAuthFilter ------");
         return new JwtAuthFilter(jwtTokenService, objectMapper);

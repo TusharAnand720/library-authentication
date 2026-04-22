@@ -21,6 +21,14 @@ public class JwtClaims {
         this.issuer = null;
     }
 
+    public JwtClaims(String subject) {
+        this.subject = subject;
+        this.roles = null;
+        this.issuedAt = null;   // JwtTokenServiceImpl fills these during signing
+        this.expiry = null;
+        this.issuer = null;
+    }
+
     // used when PARSING a token
     public JwtClaims(String subject, List<String> roles, Instant issuedAt, Instant expiry, String issuer) {
         this.subject = subject;

@@ -12,15 +12,17 @@ public class AuthProperties {
     private final Algorithm algorithm;
     private final long expirySeconds;
     private final String issuer;
+    private final boolean filterEnabled;
 
     @ConstructorBinding
-    public AuthProperties(String secret, String privateKeyPath, String publicKeyPath, Algorithm algorithm, long expirySeconds, String issuer) {
+    public AuthProperties(String secret, String privateKeyPath, String publicKeyPath, Algorithm algorithm, long expirySeconds, String issuer, boolean filterEnabled) {
         this.algorithm = algorithm != null ? algorithm : Algorithm.HS256; // default algo will be HS256
         this.expirySeconds = expirySeconds > 0 ? expirySeconds : 1800L; // if expirySeconds is not provided then it will be of 30 mins
         this.issuer = issuer;
         this.secret = secret;
         this.privateKeyPath = privateKeyPath;
         this.publicKeyPath = publicKeyPath;
+        this.filterEnabled = filterEnabled;
     }
 
     public String getSecret() {
@@ -45,5 +47,9 @@ public class AuthProperties {
 
     public String getIssuer() {
         return issuer;
+    }
+
+    public boolean isFilterEnabled() {
+        return filterEnabled;
     }
 }
