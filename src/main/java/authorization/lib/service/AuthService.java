@@ -2,6 +2,7 @@ package authorization.lib.service;
 
 import authorization.lib.model.AuthToken;
 import authorization.lib.model.JwtClaims;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface AuthService {
 
@@ -14,11 +15,10 @@ public interface AuthService {
 
     /**
      *
-     * @param rawToken
      * @return {@link JwtClaims}
      * @throws authorization.lib.exception.SigningException
      * @throws authorization.lib.exception.InvalidTokenException
      * @throws authorization.lib.exception.TokenExpiredException
      **/
-    JwtClaims validateToken(String rawToken);
+    JwtClaims validateToken(HttpServletRequest servletRequest);
 }

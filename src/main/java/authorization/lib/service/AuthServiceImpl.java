@@ -11,6 +11,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,10 @@ import java.time.Instant;
 import java.util.Date;
 
 public class AuthServiceImpl implements AuthService {
+
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
+
 
     private final AuthProperties properties;
     private final SecretKey signingKey;
@@ -53,8 +58,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JwtClaims validateToken(String rawToken) {
-        if (rawToken == null || rawToken.isBlank()) {
+    public JwtClaims validateToken(HttpServletRequest servletRequest) {
+        String header = servletRequest.getHeader(AUTHORIZATION_HEADER);
+        if (header == null || !header.startsWith(BEARER_PREFIX)) {
+            throw new InvalidTokenException("invalid token Header not founds");
+        }
+
+        String rawToken = header.substring(BEARER_PREFIX.length()).strip();
+        if (rawToken.isBlank()) {
             throw new InvalidTokenException("token must not be null or blank");
         }
 
