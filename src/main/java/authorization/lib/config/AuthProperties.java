@@ -1,5 +1,6 @@
 package authorization.lib.config;
 
+import authorization.lib.constant.Algorithm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
@@ -7,49 +8,39 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding;
 public class AuthProperties {
 
     private final String secret;
-    private final String privateKeyPath;
-    private final String publicKeyPath;
-    private final Algorithm algorithm;
-    private final long expirySeconds;
     private final String issuer;
-    private final boolean filterEnabled;
+    private final long expirySeconds;
+    private final Algorithm algorithm;
 
     @ConstructorBinding
-    public AuthProperties(String secret, String privateKeyPath, String publicKeyPath, Algorithm algorithm, long expirySeconds, String issuer, boolean filterEnabled) {
-        this.algorithm = algorithm != null ? algorithm : Algorithm.HS256; // default algo will be HS256
-        this.expirySeconds = expirySeconds > 0 ? expirySeconds : 1800L; // if expirySeconds is not provided then it will be of 30 mins
-        this.issuer = issuer;
+    public AuthProperties(String secret, String issuer, long expirySeconds, Algorithm algorithm) {
+
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalArgumentException("auth.jwt.secret must be set");
+        }
+        if (secret.getBytes().length < 32) {
+            throw new IllegalArgumentException("auth.jwt.secret must be at least 32 bytes");
+        }
+
         this.secret = secret;
-        this.privateKeyPath = privateKeyPath;
-        this.publicKeyPath = publicKeyPath;
-        this.filterEnabled = filterEnabled;
+        this.issuer = issuer != null ? issuer : "auth-lib";
+        this.expirySeconds = expirySeconds > 0 ? expirySeconds : 3600L;
+        this.algorithm = algorithm != null ? algorithm : Algorithm.HS256;
     }
 
     public String getSecret() {
         return secret;
     }
 
-    public String getPrivateKeyPath() {
-        return privateKeyPath;
-    }
-
-    public String getPublicKeyPath() {
-        return publicKeyPath;
-    }
-
-    public Algorithm getAlgorithm() {
-        return algorithm;
+    public String getIssuer() {
+        return issuer;
     }
 
     public long getExpirySeconds() {
         return expirySeconds;
     }
 
-    public String getIssuer() {
-        return issuer;
-    }
-
-    public boolean isFilterEnabled() {
-        return filterEnabled;
+    public Algorithm getAlgorithm() {
+        return algorithm;
     }
 }

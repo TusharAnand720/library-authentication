@@ -2,7 +2,6 @@ package authorization.lib.model;
 
 import java.time.Instant;
 
-// Response class for token
 public class AuthToken {
     private final String rawToken;
     private final Instant issuedAt;
@@ -20,7 +19,7 @@ public class AuthToken {
 
     public long expiresInSeconds() {
         long seconds = expiry.getEpochSecond() - Instant.now().getEpochSecond();
-        return Math.max(0, seconds);    // never return negative
+        return Math.max(0, seconds);
     }
 
     public String getRawToken() {
@@ -34,5 +33,4 @@ public class AuthToken {
     public Instant getExpiry() {
         return expiry;
     }
-
 }
