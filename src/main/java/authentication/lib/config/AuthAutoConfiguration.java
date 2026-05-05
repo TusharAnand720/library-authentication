@@ -18,4 +18,10 @@ public class AuthAutoConfiguration {
     public AuthService authService(AuthProperties properties) {
         return new AuthServiceImpl(properties);
     }
+
+    @Bean
+    public AuthChannelInterceptor authChannelInterceptor(AuthService authService) {
+        // AuthService found via @ComponentScan above, injected here
+        return new AuthChannelInterceptor(authService);
+    }
 }
