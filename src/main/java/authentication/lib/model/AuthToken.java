@@ -1,4 +1,4 @@
-package authorization.lib.model;
+package authentication.lib.model;
 
 import java.time.Instant;
 

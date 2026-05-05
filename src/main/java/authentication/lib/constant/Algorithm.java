@@ -1,4 +1,4 @@
-package authorization.lib.constant;
+package authentication.lib.constant;
 
 public enum Algorithm {
     HS256,

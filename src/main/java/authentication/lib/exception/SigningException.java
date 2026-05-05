@@ -1,6 +1,6 @@
-package authorization.lib.exception;
+package authentication.lib.exception;
 
-import authorization.lib.constant.ErrorCode;
+import authentication.lib.constant.ErrorCode;
 
 public class SigningException extends AuthException {
     public SigningException(String reason, Throwable cause) {

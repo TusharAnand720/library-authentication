@@ -1,11 +1,11 @@
-package authorization.lib.service;
+package authentication.lib.service;
 
-import authorization.lib.config.AuthProperties;
-import authorization.lib.exception.InvalidTokenException;
-import authorization.lib.exception.SigningException;
-import authorization.lib.exception.TokenExpiredException;
-import authorization.lib.model.AuthToken;
-import authorization.lib.model.JwtClaims;
+import authentication.lib.config.AuthProperties;
+import authentication.lib.exception.InvalidTokenException;
+import authentication.lib.exception.SigningException;
+import authentication.lib.exception.TokenExpiredException;
+import authentication.lib.model.AuthToken;
+import authentication.lib.model.JwtClaims;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -60,11 +60,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtClaims validateToken(HttpServletRequest servletRequest) {
         String header = servletRequest.getHeader(AUTHORIZATION_HEADER);
-        if (header == null || !header.startsWith(BEARER_PREFIX)) {
+        return validateToken(header);
+    }
+
+    public JwtClaims validateToken(String rawToken) {
+        if (rawToken == null || !rawToken.startsWith(BEARER_PREFIX)) {
             throw new InvalidTokenException("invalid token Header not founds");
         }
 
-        String rawToken = header.substring(BEARER_PREFIX.length()).strip();
+        rawToken = rawToken.substring(BEARER_PREFIX.length()).strip();
         if (rawToken.isBlank()) {
             throw new InvalidTokenException("token must not be null or blank");
         }

@@ -1,9 +1,9 @@
-package authorization.lib.model;
+package authentication.lib.model;
 
 import java.time.Instant;
 
 public class JwtClaims {
-    
+
     private final String subject;
     private final Instant issuedAt;
     private final Instant expiry;

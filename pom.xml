@@ -9,8 +9,8 @@
         <relativePath/>
     </parent>
 
-    <groupId>authorization.lib</groupId>
-    <artifactId>authorization-lib</artifactId>
+    <groupId>authentication.lib</groupId>
+    <artifactId>authentication-lib</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
@@ -29,6 +29,27 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

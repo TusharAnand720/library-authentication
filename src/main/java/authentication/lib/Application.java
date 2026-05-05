@@ -1,4 +1,4 @@
-package authorization.lib;
+package authentication.lib;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

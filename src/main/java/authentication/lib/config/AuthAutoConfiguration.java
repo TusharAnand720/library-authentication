@@ -1,7 +1,7 @@
-package authorization.lib.config;
+package authentication.lib.config;
 
-import authorization.lib.service.AuthService;
-import authorization.lib.service.AuthServiceImpl;
+import authentication.lib.service.AuthService;
+import authentication.lib.service.AuthServiceImpl;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

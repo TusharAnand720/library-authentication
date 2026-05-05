@@ -1,6 +1,6 @@
-package authorization.lib.config;
+package authentication.lib.config;
 
-import authorization.lib.constant.Algorithm;
+import authentication.lib.constant.Algorithm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
