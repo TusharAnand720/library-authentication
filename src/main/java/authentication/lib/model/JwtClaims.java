@@ -1,8 +1,9 @@
 package authentication.lib.model;
 
+import java.security.Principal;
 import java.time.Instant;
 
-public class JwtClaims {
+public class JwtClaims implements Principal {
 
     private final String subject;
     private final Instant issuedAt;
@@ -42,5 +43,10 @@ public class JwtClaims {
 
     public String getIssuer() {
         return issuer;
+    }
+
+    @Override
+    public String getName() {
+        return this.subject;
     }
 }
